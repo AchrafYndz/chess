@@ -13,8 +13,7 @@ public:
     ChessPiece* getPiece(int r, int c);
     void setPiece(int r, int c, ChessPiece* p);
 
-    bool move(ChessPiece* p, int r, int c);
-    bool move_wo_delete(ChessPiece *p, int r, int c);
+    bool move(ChessPiece* p, int r, int c, bool withDeletePiece=true);
 
     bool validateMove(ChessPiece* p, int r, int c);
 
