@@ -51,7 +51,7 @@ void ChessGUI::clicked(int r, int c) {
                         continue;
                     }
                 }
-                if (g.move_wo_delete(p, m.first, m.second)) {
+                if (g.move(p, m.first, m.second, false)) {
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {
                             ChessPiece *piece = g.getPiece(i, j);
@@ -164,7 +164,7 @@ void ChessGUI::clicked(int r, int c) {
             if (g.checkmate(white)) {
                 message("Checkmate, black wins!");
             } else {
-                message("Wit is in check!");
+                message("White is in check!");
             }
         } else if (g.stalemate(white)) {
             message("Stalemate!");
