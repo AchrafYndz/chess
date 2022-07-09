@@ -1,13 +1,9 @@
-//
-// Created by toonc on 12/17/2021.
-//
-
 #include "message.h"
 #include <QMessageBox>
 #include <QString>
 
-void message(const QString &s) {
+void message(const QString &p) {
     QMessageBox box1;
-    box1.setText(s);
+    box1.setText(p);
     box1.exec();
 }

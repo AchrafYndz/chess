@@ -1,7 +1,3 @@
-//
-// Created by toonc on 12/17/2021.
-//
-
 #include <QFileDialog>
 #include <QMessageBox>
 

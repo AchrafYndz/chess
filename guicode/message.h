@@ -1,12 +1,8 @@
-//
-// Created by toonc on 12/17/2021.
-//
-
-#ifndef SCHAKEN_MESSAGE_H
-#define SCHAKEN_MESSAGE_H
+#ifndef CHESS_MESSAGE_H
+#define CHESS_MESSAGE_H
 
 #include <QString>
 
-void message(const QString &s);
+void message(const QString &p);
 
-#endif //SCHAKEN_MESSAGE_H
+#endif

@@ -1,49 +1,36 @@
-//  Student: Achraf Yandouzi
-//  Rolnummer: s0211812
-//  Opmerkingen: /
-
-#ifndef SCHAKEN_GAME_H
-#define SCHAKEN_GAME_H
+#ifndef CHESS_GAME_H
+#define CHESS_GAME_H
 #include <vector>
-#include "SchaakStuk.h"
+#include "ChessPiece.h"
 
-class SchaakStuk;
+class ChessPiece;
 
 class Game {
-// variabelen om de status van het spel/bord te bewaren
-
 public:
     Game();
     ~Game();
 
+    ChessPiece* getPiece(int r, int c);
+    void setPiece(int r, int c, ChessPiece* p);
 
-    // vanaf hier volgen functies die ik zelf heb gedefinieerd/aangepast
-    SchaakStuk* getPiece(int r, int k);
-    void setPiece(int r, int k, SchaakStuk* s);
+    bool move(ChessPiece* p, int r, int c);
+    bool move_wo_delete(ChessPiece *p, int r, int c);
 
-    bool move(SchaakStuk* s,int r, int k); // Verplaats stuk s naar rij r en kolom k
+    bool validateMove(ChessPiece* p, int r, int c);
 
-    bool check_move(SchaakStuk* s,int r, int k); // doet hetzelfde als move behalve dat het de moves niet echt uitvoert
+    bool check(bw color);
+    bool checkmate(bw color);
 
-    bool move_wo_delete(SchaakStuk *s, int r, int k); // doet hetzelfde als move behalve dat het de pieces niet verwijdert
+    void setStartingBoard();
 
-    bool schaak(zw kleur);
+    void setBoard(std::vector<std::vector<ChessPiece*>> p);
+    std::vector<std::vector<ChessPiece*>> getBoard();
 
-    void setStartBord();
+    bool stalemate(bw color);
 
-    bool schaakmat(zw kleur);
-
-    void setSpeelbord(std::vector<std::vector<SchaakStuk*>> s);
-
-    std::vector<std::vector<SchaakStuk*>> getSpeelbord();
-
-    bool pat(zw kleur);
 private:
-    // Hier zet jij jouw datastructuur neer om het bord te bewaren ...
-    std::vector<std::vector<SchaakStuk*>> speelbord = {{}};
-
-
+    std::vector<std::vector<ChessPiece*>> board = {{}};
 };
 
 
-#endif //SCHAKEN_GAME_H
+#endif

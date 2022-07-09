@@ -1,82 +1,70 @@
-//  Student: Achraf Yandouzi
-//  Rolnummer: s0211812
-//  Opmerkingen: (bvb aanpassingen van de opgave)
-//
-//TODO: - belangrijk: /
-//      - extra: meer opties voor promotion
-
 #include <iostream>
 #include <utility>
 #include "game.h"
-#include "SchaakStuk.h"
+#include "ChessPiece.h"
 
-// zelf aangepast (speelbord geinitializeerd)
 Game::Game() {
-    std::vector<SchaakStuk *> rij(8, nullptr);
-    speelbord[0] = rij;
+    std::vector<ChessPiece *> row(8, nullptr);
+    board[0] = row;
     for (int r = 0; r < 7; r++) {
-        speelbord.push_back(rij);
+        board.push_back(row);
     }
-    setStartBord();
+    setStartingBoard();
 }
 
 Game::~Game() {
-    for (int r=0; r<8; r++) {
-        for (int k=0; k<8; k++) {
-            delete getPiece(r, k);
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            delete getPiece(r, c);
         }
     }
 }
 
-// Zet het bord klaar; voeg de stukken op de juiste plaats toe
-void Game::setStartBord() {
-    // we laden eerst alle variabelen
-    SchaakStuk *whitePawn1 = new Pion(wit);
-    SchaakStuk *whitePawn2 = new Pion(wit);
-    SchaakStuk *whitePawn3 = new Pion(wit);
-    SchaakStuk *whitePawn4 = new Pion(wit);
-    SchaakStuk *whitePawn5 = new Pion(wit);
-    SchaakStuk *whitePawn6 = new Pion(wit);
-    SchaakStuk *whitePawn7 = new Pion(wit);
-    SchaakStuk *whitePawn8 = new Pion(wit);
+void Game::setStartingBoard() {
+    ChessPiece *whitePawn1 = new Pawn(white);
+    ChessPiece *whitePawn2 = new Pawn(white);
+    ChessPiece *whitePawn3 = new Pawn(white);
+    ChessPiece *whitePawn4 = new Pawn(white);
+    ChessPiece *whitePawn5 = new Pawn(white);
+    ChessPiece *whitePawn6 = new Pawn(white);
+    ChessPiece *whitePawn7 = new Pawn(white);
+    ChessPiece *whitePawn8 = new Pawn(white);
 
-    SchaakStuk *blackPawn1 = new Pion(zwart);
-    SchaakStuk *blackPawn2 = new Pion(zwart);
-    SchaakStuk *blackPawn3 = new Pion(zwart);
-    SchaakStuk *blackPawn4 = new Pion(zwart);
-    SchaakStuk *blackPawn5 = new Pion(zwart);
-    SchaakStuk *blackPawn6 = new Pion(zwart);
-    SchaakStuk *blackPawn7 = new Pion(zwart);
-    SchaakStuk *blackPawn8 = new Pion(zwart);
+    ChessPiece *blackPawn1 = new Pawn(black);
+    ChessPiece *blackPawn2 = new Pawn(black);
+    ChessPiece *blackPawn3 = new Pawn(black);
+    ChessPiece *blackPawn4 = new Pawn(black);
+    ChessPiece *blackPawn5 = new Pawn(black);
+    ChessPiece *blackPawn6 = new Pawn(black);
+    ChessPiece *blackPawn7 = new Pawn(black);
+    ChessPiece *blackPawn8 = new Pawn(black);
 
-    SchaakStuk *whiteRook1 = new Toren(wit);
-    SchaakStuk *whiteRook2 = new Toren(wit);
+    ChessPiece *whiteRook1 = new Rook(white);
+    ChessPiece *whiteRook2 = new Rook(white);
 
-    SchaakStuk *blackRook1 = new Toren(zwart);
-    SchaakStuk *blackRook2 = new Toren(zwart);
+    ChessPiece *blackRook1 = new Rook(black);
+    ChessPiece *blackRook2 = new Rook(black);
 
-    SchaakStuk *whiteKnight1 = new Paard(wit);
-    SchaakStuk *whiteKnight2 = new Paard(wit);
+    ChessPiece *whiteKnight1 = new Knight(white);
+    ChessPiece *whiteKnight2 = new Knight(white);
 
-    SchaakStuk *blackKnight1 = new Paard(zwart);
-    SchaakStuk *blackKnight2 = new Paard(zwart);
+    ChessPiece *blackKnight1 = new Knight(black);
+    ChessPiece *blackKnight2 = new Knight(black);
 
-    SchaakStuk *whiteBishop1 = new Loper(wit);
-    SchaakStuk *whiteBishop2 = new Loper(wit);
+    ChessPiece *whiteBishop1 = new Bishop(white);
+    ChessPiece *whiteBishop2 = new Bishop(white);
 
-    SchaakStuk *blackBishop1 = new Loper(zwart);
-    SchaakStuk *blackBishop2 = new Loper(zwart);
+    ChessPiece *blackBishop1 = new Bishop(black);
+    ChessPiece *blackBishop2 = new Bishop(black);
 
-    SchaakStuk *whiteQueen = new Koningin(wit);
+    ChessPiece *whiteQueen = new Queen(white);
 
-    SchaakStuk *blackQueen = new Koningin(zwart);
+    ChessPiece *blackQueen = new Queen(black);
 
-    SchaakStuk *whiteKing = new Koning(wit);
+    ChessPiece *whiteKing = new King(white);
 
-    SchaakStuk *blackKing = new Koning(zwart);
+    ChessPiece *blackKing = new King(black);
 
-
-    // we zetten de zwarte stukken
     setPiece(0, 0, blackRook1);
     setPiece(0, 7, blackRook2);
     setPiece(0, 1, blackKnight1);
@@ -93,13 +81,11 @@ void Game::setStartBord() {
     setPiece(1, 5, blackPawn6);
     setPiece(1, 6, blackPawn7);
     setPiece(1, 7, blackPawn8);
-    // we zetten de lege rijen
     for (int r = 2; r < 7; r++) {
-        for (int k = 0; k < 8; k++) {
-            speelbord[r][k] = nullptr;
+        for (int c = 0; c < 8; c++) {
+            board[r][c] = nullptr;
         }
     }
-    // we zetten de witte stukken
     setPiece(7, 0, whiteRook1);
     setPiece(7, 7, whiteRook2);
     setPiece(7, 1, whiteKnight1);
@@ -118,38 +104,33 @@ void Game::setStartBord() {
     setPiece(6, 7, whitePawn8);
 }
 
-// Verplaats stuk s naar positie (r,k)
-// Als deze move niet mogelijk is, wordt false teruggegeven
-// en verandert er niets aan het schaakbord.
-// Anders wordt de move uitgevoerd en wordt true teruggegeven
-bool Game::move(SchaakStuk *s, int r, int k) {
-    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-    std::pair<int, int> nieuwe_pos;
-    nieuwe_pos.first = r;
-    nieuwe_pos.second = k;
-    std::vector<std::vector<SchaakStuk*>> prev_bord = this->speelbord;
-    if (find(geldig.begin(), geldig.end(), nieuwe_pos) !=
-        geldig.end()) {// als de nieuwe positie in de geldige zetten zit
-        int old_row = s->cur_row;
-        int old_col = s->cur_col;
 
-        // rokeren
-        if (Koning *_ = dynamic_cast<Koning *>(s)) { // als een koning gaat bewegen...
-            if (abs(s->cur_col-k) > 1) { // en die gaat meer dan 1 vakje naar rechts of links
-                if (s->cur_col > k) { // als we naar links rokeren
-                    for (int i = 1; i<=s->cur_col; i++) {
-                        // dan checken we eerst dat er geen pieces tussen staan
-                        if (i != s->cur_col && getPiece(s->cur_row, i) != nullptr) {
+bool Game::move(ChessPiece *p, int r, int c) {
+    std::vector<std::pair<int, int>> valid = p->getValidMoves(*this);
+    std::pair<int, int> newPos;
+    newPos.first = r;
+    newPos.second = c;
+    std::vector<std::vector<ChessPiece *>> prev_bord = this->board;
+    if (find(valid.begin(), valid.end(), newPos) !=
+        valid.end()) {
+        int prevRow = p->curRow;
+        int prevCol = p->curCol;
+
+        if (King *_ = dynamic_cast<King *>(p)) {
+            if (abs(p->curCol - c) > 1) {
+                if (p->curCol > c) {
+                    for (int i = 1; i <= p->curCol; i++) {
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
                             return false;
                         }
-                        // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-                                    for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
+
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+                                    std::vector<std::pair<int, int>> localValid = p->getValidMoves(*this);
+                                    for (auto g: localValid) {
+                                        if (validateMove(enemy, p->curRow, i)) {
                                             return false;
                                         }
                                     }
@@ -157,29 +138,152 @@ bool Game::move(SchaakStuk *s, int r, int k) {
                             }
                         }
                     }
-                    // als die al dit heeft overleeft, is de move geldig
-                    setPiece(r, k, s); // zet de koning alvast daar
-                    SchaakStuk* toren = getPiece(r, 0); // get de linkse toren
-                    setPiece(r, k+1, toren); // zet die 1 rechts van de koning
+                    setPiece(r, c, p);
+                    ChessPiece *rook = getPiece(r, 0);
+                    setPiece(r, c + 1, rook);
+                    setPiece(r, 0, nullptr);
+                    setPiece(prevRow, prevCol, nullptr);
+                    return true;
+                } else {
+                    for (int i = p->curCol; i < 7; i++) {
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
+                            return false;
+                        }
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+                                    std::vector<std::pair<int, int>> validMoves = p->getValidMoves(*this);
+                                    for (auto g: validMoves) {
+                                        if (validateMove(enemy, p->curRow, i)) {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    setPiece(r, c, p);
+                    ChessPiece *rook = getPiece(r, 7);
+                    setPiece(r, c - 1, rook);
+                    setPiece(r, 7, nullptr);
+                    setPiece(prevRow, prevCol, nullptr);
+                    return true;
+                }
+            }
+        }
+
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            if (abs(c - p->curCol) == 1) {
+                if (getPiece(r, c) == nullptr) {
+                    setPiece(r, c, p);
+                    if (p->getColor() == black) {
+                        delete getPiece(r - 1, c);
+                        setPiece(r - 1, c, nullptr);
+                    } else {
+                        delete getPiece(r + 1, c);
+                        setPiece(r + 1, c, nullptr);
+                    }
+                    setPiece(prevRow, prevCol, nullptr);
+                    return true;
+                }
+            }
+        }
+
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            if (r == 0 || r == 7) {
+                delete getPiece(r, c);
+                setPiece(r, c, new Queen{p->getColor()});
+                setPiece(prevRow, prevCol, nullptr);
+                return true;
+            }
+        }
+
+        setPiece(p->curRow, p->curCol, nullptr);
+        ChessPiece *prevPiece = getPiece(r, c);
+        setPiece(r, c, p);
+
+        if (check(p->getColor())) {
+            setPiece(prevRow, prevCol, p);
+            setPiece(r, c, prevPiece);
+            return false;
+        }
+
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            p->setMoved(true);
+            if (abs(r - prevRow) == 2) {
+                p->setEnPassantable(true);
+            }
+        }
+
+        if (Rook *_ = dynamic_cast<Rook *>(p)) {
+            p->setMoved(true);
+        }
+        if (King *_ = dynamic_cast<King *>(p)) {
+            p->setMoved(true);
+        }
+
+        return true;
+    };
+    return false;
+}
+
+bool Game::move_wo_delete(ChessPiece *p, int r, int c) {
+    std::vector<std::pair<int, int>> validMoves = p->getValidMoves(*this);
+    std::pair<int, int> nieuwe_pos;
+    nieuwe_pos.first = r;
+    nieuwe_pos.second = c;
+    std::vector<std::vector<ChessPiece *>> prev_bord = this->board;
+    if (find(validMoves.begin(), validMoves.end(), nieuwe_pos) !=
+        validMoves.end()) {
+        int old_row = p->curRow;
+        int old_col = p->curCol;
+
+        if (King *_ = dynamic_cast<King *>(p)) {
+            if (abs(p->curCol - c) > 1) {
+                if (p->curCol > c) {
+                    for (int i = 1; i <= p->curCol; i++) {
+                        // dan checken we eerst dat er geen pieces tussen staan
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
+                            return false;
+                        }
+                        // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+//                                    std::vector<std::pair<int, int>> localValidMoves = p->getValidMoves(*this);
+                                    for (auto g: validMoves) {
+                                        if (validateMove(enemy, p->curRow, i)) {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // als die al dit heeft overleeft, is de move validMoves
+                    setPiece(r, c, p); // zet de koning alvast daar
+                    ChessPiece *toren = getPiece(r, 0); // get de linkse toren
+                    setPiece(r, c + 1, toren); // zet die 1 rechts van de koning
                     setPiece(r, 0, nullptr); // verwijder de toren van zijn vorige positie
                     setPiece(old_row, old_col, nullptr); // verwijder de koning van zijn vorige positie
                     return true;
-                }
-                else { // als we naar rechts bewegen
+                } else { // als we naar rechts bewegen
                     // analoog als hierboven
-                    for (int i=s->cur_col; i<7; i++) {
+                    for (int i = p->curCol; i < 7; i++) {
                         // dan checken we eerst dat er geen pieces tussen staan
-                        if (i!= s->cur_col && getPiece(s->cur_row, i) != nullptr) {
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
                             return false;
                         }
                         // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+                                    std::vector<std::pair<int, int>> geldig = p->getValidMoves(*this);
                                     for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
+                                        if (validateMove(enemy, p->curRow, i)) {
                                             return false;
                                         }
                                     }
@@ -187,10 +291,10 @@ bool Game::move(SchaakStuk *s, int r, int k) {
                             }
                         }
                     }
-                    // als die al dit heeft overleeft, is de move geldig
-                    setPiece(r, k, s);
-                    SchaakStuk* toren = getPiece(r, 7);
-                    setPiece(r, k-1, toren);
+                    // als die al dit heeft overleeft, is de move validMoves
+                    setPiece(r, c, p);
+                    ChessPiece *toren = getPiece(r, 7);
+                    setPiece(r, c - 1, toren);
                     setPiece(r, 7, nullptr);
                     setPiece(old_row, old_col, nullptr);
                     return true;
@@ -199,17 +303,14 @@ bool Game::move(SchaakStuk *s, int r, int k) {
         }
 
         // voer en en passant move uit
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            if (abs(k-s->cur_col)== 1) {
-                if (getPiece(r, k) == nullptr) {
-                    setPiece(r, k, s);
-                    if (s->getKleur() == zwart) {
-                        delete getPiece(r-1, k);
-                        setPiece(r - 1, k, nullptr);
-                    }
-                    else {
-                        delete getPiece(r+1, k);
-                        setPiece(r + 1, k, nullptr);
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            if (abs(c - p->curCol) == 1) {
+                if (getPiece(r, c) == nullptr) {
+                    setPiece(r, c, p);
+                    if (p->getColor() == black) {
+                        setPiece(r - 1, c, nullptr);
+                    } else {
+                        setPiece(r + 1, c, nullptr);
                     }
                     setPiece(old_row, old_col, nullptr);
                     return true;
@@ -218,173 +319,40 @@ bool Game::move(SchaakStuk *s, int r, int k) {
         }
 
         // promotie
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            if (r==0 || r==7) {
-                delete getPiece(r, k);
-                setPiece(r, k, new Koningin{s->getKleur()});
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            if (r == 0 || r == 7) {
+                setPiece(r, c, new Queen{p->getColor()});
                 setPiece(old_row, old_col, nullptr);
                 return true;
             }
         }
 
-        setPiece(s->cur_row, s->cur_col, nullptr);
-        SchaakStuk* prev_piece = getPiece(r, k);
-        setPiece(r, k, s);
-
-        if (schaak(s->getKleur())) {
-            setPiece(old_row, old_col, s);
-            setPiece(r, k, prev_piece);
+        setPiece(p->curRow, p->curCol, nullptr);
+        ChessPiece *prev_piece = getPiece(r, c);
+        setPiece(r, c, p);
+        if (p->getColor() == black && check(black)) {
+            setPiece(old_row, old_col, p);
+            setPiece(r, c, prev_piece);
             return false;
         }
-
-        // maak een pion 'en passantable'
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            s->setBewogen(true);
-            if (abs(r-old_row) == 2) {
-                s->setEnPassantable(true);
-            }
-        }
-
-        if (Toren *_= dynamic_cast<Toren *>(s)) {
-            s->setBewogen(true);
-        }
-        if (Koning *_= dynamic_cast<Koning *>(s)) {
-            s->setBewogen(true);
-        }
-
-        return true;
-    };
-    return false;
-}
-
-bool Game::move_wo_delete(SchaakStuk *s, int r, int k) {
-    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-    std::pair<int, int> nieuwe_pos;
-    nieuwe_pos.first = r;
-    nieuwe_pos.second = k;
-    std::vector<std::vector<SchaakStuk*>> prev_bord = this->speelbord;
-    if (find(geldig.begin(), geldig.end(), nieuwe_pos) !=
-        geldig.end()) {// als de nieuwe positie in de geldige zetten zit
-        int old_row = s->cur_row;
-        int old_col = s->cur_col;
-
-        // rokeren
-        if (Koning *_ = dynamic_cast<Koning *>(s)) { // als een koning gaat bewegen...
-            if (abs(s->cur_col-k) > 1) { // en die gaat meer dan 1 vakje naar rechts of links
-                if (s->cur_col > k) { // als we naar links rokeren
-                    for (int i = 1; i<=s->cur_col; i++) {
-                        // dan checken we eerst dat er geen pieces tussen staan
-                        if (i != s->cur_col && getPiece(s->cur_row, i) != nullptr) {
-                            return false;
-                        }
-                        // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-                                    for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    // als die al dit heeft overleeft, is de move geldig
-                    setPiece(r, k, s); // zet de koning alvast daar
-                    SchaakStuk* toren = getPiece(r, 0); // get de linkse toren
-                    setPiece(r, k+1, toren); // zet die 1 rechts van de koning
-                    setPiece(r, 0, nullptr); // verwijder de toren van zijn vorige positie
-                    setPiece(old_row, old_col, nullptr); // verwijder de koning van zijn vorige positie
-                    return true;
-                }
-                else { // als we naar rechts bewegen
-                    // analoog als hierboven
-                    for (int i=s->cur_col; i<7; i++) {
-                        // dan checken we eerst dat er geen pieces tussen staan
-                        if (i!= s->cur_col && getPiece(s->cur_row, i) != nullptr) {
-                            return false;
-                        }
-                        // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-                                    for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    // als die al dit heeft overleeft, is de move geldig
-                    setPiece(r, k, s);
-                    SchaakStuk* toren = getPiece(r, 7);
-                    setPiece(r, k-1, toren);
-                    setPiece(r, 7, nullptr);
-                    setPiece(old_row, old_col, nullptr);
-                    return true;
-                }
-            }
-        }
-
-        // voer en en passant move uit
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            if (abs(k-s->cur_col)== 1) {
-                if (getPiece(r, k) == nullptr) {
-                    setPiece(r, k, s);
-                    if (s->getKleur() == zwart) {
-                        setPiece(r - 1, k, nullptr);
-                    }
-                    else {
-                        setPiece(r + 1, k, nullptr);
-                    }
-                    setPiece(old_row, old_col, nullptr);
-                    return true;
-                }
-            }
-        }
-
-        // promotie
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            if (r==0 || r==7) {
-                setPiece(r, k, new Koningin{s->getKleur()});
-                setPiece(old_row, old_col, nullptr);
-                return true;
-            }
-        }
-
-        setPiece(s->cur_row, s->cur_col, nullptr);
-        SchaakStuk* prev_piece = getPiece(r, k);
-        setPiece(r, k, s);
-        if (s->getKleur() == zwart && schaak(zwart)) {
-            setPiece(old_row, old_col, s);
-            setPiece(r, k, prev_piece);
-            return false;
-        }
-        if (s->getKleur() == wit && schaak(wit)) {
-            setPiece(old_row, old_col, s);
-            setPiece(r, k, prev_piece);
+        if (p->getColor() == white && check(white)) {
+            setPiece(old_row, old_col, p);
+            setPiece(r, c, prev_piece);
             return false;
         }
         // maak een pion 'en passantable'
-        if (Pion *_ = dynamic_cast<Pion *>(s)) {
-            s->setBewogen(true);
-            if (abs(r-old_row) == 2) {
-                s->setEnPassantable(true);
+        if (Pawn *_ = dynamic_cast<Pawn *>(p)) {
+            p->setMoved(true);
+            if (abs(r - old_row) == 2) {
+                p->setEnPassantable(true);
             }
         }
 
-        if (Toren *_= dynamic_cast<Toren *>(s)) {
-            s->setBewogen(true);
+        if (Rook *_ = dynamic_cast<Rook *>(p)) {
+            p->setMoved(true);
         }
-        if (Koning *_= dynamic_cast<Koning *>(s)) {
-            s->setBewogen(true);
+        if (King *_ = dynamic_cast<King *>(p)) {
+            p->setMoved(true);
         }
 
         return true;
@@ -392,33 +360,33 @@ bool Game::move_wo_delete(SchaakStuk *s, int r, int k) {
     return false;
 }
 
-bool Game::check_move(SchaakStuk *s, int r, int k) {
-    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
+bool Game::validateMove(ChessPiece *p, int r, int c) {
+    std::vector<std::pair<int, int>> geldig = p->getValidMoves(*this);
     std::pair<int, int> nieuwe_pos;
     nieuwe_pos.first = r;
-    nieuwe_pos.second = k;
-    int old_row = s->cur_row;
-    int old_col = s->cur_col;
-    std::vector<std::vector<SchaakStuk*>> origineel_bord = this->speelbord;
+    nieuwe_pos.second = c;
+    int old_row = p->curRow;
+    int old_col = p->curCol;
+    std::vector<std::vector<ChessPiece *>> origineel_bord = this->board;
     if (find(geldig.begin(), geldig.end(), nieuwe_pos) !=
         geldig.end()) {// als de nieuwe positie in de geldige zetten zit
         // rokeren
-        if (Koning *_ = dynamic_cast<Koning *>(s)) { // als een koning gaat bewegen...
-            if (abs(s->cur_col-k) > 1) { // en die gaat meer dan 1 vakje naar rechts of links
-                if (s->cur_col > k) { // als we naar links rokeren
-                    for (int i = 1; i<=s->cur_col; i++) {
+        if (King *_ = dynamic_cast<King *>(p)) { // als een koning gaat bewegen...
+            if (abs(p->curCol - c) > 1) { // en die gaat meer dan 1 vakje naar rechts of links
+                if (p->curCol > c) { // als we naar links rokeren
+                    for (int i = 1; i <= p->curCol; i++) {
                         // dan checken we eerst dat er geen pieces tussen staan
-                        if (i != s->cur_col && getPiece(s->cur_row, i) != nullptr) {
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
                             return false;
                         }
                         // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+                                    std::vector<std::pair<int, int>> geldig = p->getValidMoves(*this);
                                     for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
+                                        if (validateMove(enemy, p->curRow, i)) {
                                             return false;
                                         }
                                     }
@@ -428,22 +396,21 @@ bool Game::check_move(SchaakStuk *s, int r, int k) {
                     }
                     // als die al dit heeft overleeft, is de move geldig
                     return true;
-                }
-                else { // als we naar rechts bewegen
+                } else { // als we naar rechts bewegen
                     // analoog als hierboven
-                    for (int i=s->cur_col; i<7; i++) {
+                    for (int i = p->curCol; i < 7; i++) {
                         // dan checken we eerst dat er geen pieces tussen staan
-                        if (i!= s->cur_col && getPiece(s->cur_row, i) != nullptr) {
+                        if (i != p->curCol && getPiece(p->curRow, i) != nullptr) {
                             return false;
                         }
                         // en vervolgens checken we dat er geen stukken van de tegenstander deze vakjes 'coveren'
-                        for (int a=0; a<8; a++) {
-                            for (int b=0; b<8; b++) {
-                                SchaakStuk* enemy = getPiece(a, b);
-                                if (enemy != nullptr && enemy->getKleur() != s->getKleur()) {
-                                    std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
+                        for (int a = 0; a < 8; a++) {
+                            for (int b = 0; b < 8; b++) {
+                                ChessPiece *enemy = getPiece(a, b);
+                                if (enemy != nullptr && enemy->getColor() != p->getColor()) {
+                                    std::vector<std::pair<int, int>> geldig = p->getValidMoves(*this);
                                     for (auto g: geldig) {
-                                        if (check_move(enemy, s->cur_row, i)) {
+                                        if (validateMove(enemy, p->curRow, i)) {
                                             return false;
                                         }
                                     }
@@ -458,45 +425,40 @@ bool Game::check_move(SchaakStuk *s, int r, int k) {
         }
 
 
-        setPiece(s->cur_row, s->cur_col, nullptr);
-        setPiece(r, k, s);
-        if (s->getKleur() == zwart && schaak(zwart)) {
-            s->cur_col = old_col;
-            s->cur_row = old_row;
-            this->speelbord = origineel_bord;
+        setPiece(p->curRow, p->curCol, nullptr);
+        setPiece(r, c, p);
+        if (p->getColor() == black && check(black)) {
+            p->curCol = old_col;
+            p->curRow = old_row;
+            this->board = origineel_bord;
             return false;
         }
-        if (s->getKleur() == wit && schaak(wit)) {
-            s->cur_col = old_col;
-            s->cur_row = old_row;
-            this->speelbord = origineel_bord;
+        if (p->getColor() == white && check(white)) {
+            p->curCol = old_col;
+            p->curRow = old_row;
+            this->board = origineel_bord;
             return false;
         }
-        s->cur_col = old_col;
-        s->cur_row = old_row;
-        this->speelbord = origineel_bord;
+        p->curCol = old_col;
+        p->curRow = old_row;
+        this->board = origineel_bord;
         return true;
     };
-    s->cur_col = old_col;
-    s->cur_row = old_row;
-    this->speelbord = origineel_bord;
+    p->curCol = old_col;
+    p->curRow = old_row;
+    this->board = origineel_bord;
     return false;
 }
 
-// Geeft true als kleur schaak staat
-bool Game::schaak(zw kleur) {
-    // loop over elke piece, als de kleur!KLEUR is, kijk naar zijn geldige moves
-    // loop over elke geldige move, gebruik de functie getPiece() om te kijken naar wat daar staat
-    // als daar de *kleur* koning staat, return true (nog gwn letten op dubbelchecks, denk ik)
-    // anders return false
-    for (std::vector<SchaakStuk *> rij: this->speelbord) {
-        for (SchaakStuk *s: rij) {
-            if (s != nullptr && s->getKleur() != kleur) {
-                std::vector<std::pair<int, int>> geldige_moves = s->geldige_zetten(*this);
-                for (auto move: geldige_moves) {
-                    SchaakStuk *stuk = getPiece(move.first, move.second);
-                    if (stuk != nullptr) {
-                        if (Koning *_ = dynamic_cast<Koning *>(stuk)) {
+bool Game::check(bw color) {
+    for (const std::vector<ChessPiece *> &row: this->board) {
+        for (ChessPiece *p: row) {
+            if (p != nullptr && p->getColor() != color) {
+                std::vector<std::pair<int, int>> validMoves = p->getValidMoves(*this);
+                for (auto move: validMoves) {
+                    ChessPiece *piece = getPiece(move.first, move.second);
+                    if (piece != nullptr) {
+                        if (King *_ = dynamic_cast<King *>(piece)) {
                             return true;
                         }
                     }
@@ -507,20 +469,13 @@ bool Game::schaak(zw kleur) {
     return false;
 }
 
-// Geeft true als kleur schaakmat staat
-bool Game::schaakmat(zw kleur) {
-    // loop over alle stukken van 'kleur'
-    // loop over al hun geldige moves
-    // gebruik de functie move om na te kijken of je daar naar toe kunt bewegen
-    // als ik daar niet naartoe kon moven, betekent dat dat ik nog schaak sta na de move
-    // dus dan blijven we verder loopen
-    // vanaf dat er 1 move is die effectief werkte, returnen we false
-    for (std::vector<SchaakStuk *> rij: this->speelbord) {
-        for (SchaakStuk *s: rij) {
-            if (s != nullptr && s->getKleur() == kleur) {
-                std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-                for (std::pair <int, int> m: geldig) {
-                    if (check_move(s, m.first, m.second)) {
+bool Game::checkmate(bw color) {
+    for (const std::vector<ChessPiece *> &row: this->board) {
+        for (ChessPiece *p: row) {
+            if (p != nullptr && p->getColor() == color) {
+                std::vector<std::pair<int, int>> validMoves = p->getValidMoves(*this);
+                for (std::pair<int, int> m: validMoves) {
+                    if (validateMove(p, m.first, m.second)) {
                         return false;
                     }
                 }
@@ -530,21 +485,13 @@ bool Game::schaakmat(zw kleur) {
     return true;
 }
 
-// Geeft true als kleur pat staat
-// (pat = geen geldige zet mogelijk, maar kleur staat niet schaak;
-// dit resulteert in een gelijkspel)
-bool Game::pat(zw kleur) {
-    // loop over alle stukken
-    // als stuk de kleur 'kleur' heeft, loop over al zijn geldige moves
-    // gebruik checkMove() om te zien of we daarnaar toe kunnen bewegen
-    // vanaf dat dat kan, return false
-    // op het einde van de loop, return true
-    for (std::vector<SchaakStuk *> rij: this->speelbord) {
-        for (SchaakStuk *s: rij) {
-            if (s != nullptr && s->getKleur() == kleur) {
-                std::vector<std::pair<int, int>> geldig = s->geldige_zetten(*this);
-                for (std::pair <int, int> m: geldig) {
-                    if (check_move(s, m.first, m.second)) {
+bool Game::stalemate(bw color) {
+    for (const std::vector<ChessPiece *> &row: this->board) {
+        for (ChessPiece *p: row) {
+            if (p != nullptr && p->getColor() == color) {
+                std::vector<std::pair<int, int>> validMoves = p->getValidMoves(*this);
+                for (std::pair<int, int> m: validMoves) {
+                    if (validateMove(p, m.first, m.second)) {
                         return false;
                     }
                 }
@@ -554,33 +501,25 @@ bool Game::pat(zw kleur) {
     return true;
 }
 
-// Geeft een pointer naar het schaakstuk dat op rij r, kolom k staat
-// Als er geen schaakstuk staat op deze positie, geef nullptr terug
-SchaakStuk *Game::getPiece(int r, int k) {
-    // Hier komt jouw code om op te halen welk stuk op rij r, kolom k staat
-    SchaakStuk *piece = speelbord.at(r).at(k);
+ChessPiece *Game::getPiece(int r, int c) {
+    ChessPiece *piece = board.at(r).at(c);
     return piece;
 }
 
-// Zet het schaakstuk waar s naar verwijst neer op rij r, kolom k.
-// Als er al een schaakstuk staat, wordt het overschreven.
-// Bewaar in jouw datastructuur de *pointer* naar het schaakstuk,
-// niet het schaakstuk zelf.
-void Game::setPiece(int r, int k, SchaakStuk *s) {
-    // Hier komt jouw code om een stuk neer te zetten op het bord
-    speelbord[r][k] = s;
-    if (s != nullptr) {
-        s->cur_row = r;
-        s->cur_col = k;
+void Game::setPiece(int r, int c, ChessPiece *p) {
+    board[r][c] = p;
+    if (p != nullptr) {
+        p->curRow = r;
+        p->curCol = c;
     }
 }
 
-void Game::setSpeelbord(std::vector<std::vector<SchaakStuk *>> s) {
-    speelbord = std::move(s);
+void Game::setBoard(std::vector<std::vector<ChessPiece *>> p) {
+    board = std::move(p);
 }
 
-std::vector<std::vector<SchaakStuk *>> Game::getSpeelbord() {
-    return speelbord;
+std::vector<std::vector<ChessPiece *>> Game::getBoard() {
+    return board;
 }
 
 
