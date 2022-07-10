@@ -180,7 +180,7 @@ Don't forget to give the project a star! Thanks again!
 ## Acknowledgments
 
 * My professor [Toon Calders](https://github.com/tcalders) and assistants [Tom Hofkens](https://github.com/thofkens)
-  and [Daphne Lenders]()
+  and [Daphne Lenders](https://www.linkedin.com/in/daphne-lenders/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
