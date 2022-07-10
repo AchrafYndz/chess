@@ -73,8 +73,7 @@ big project in `c++`.
 
 #### QT 5.15.2
 
-The following installation instructions are for Linux. I refer other operating systems to QT's websites, to follow the
-instructions on there.
+The following installation instructions are for Linux. For other operating systems, please refer to the installation instructions found on [the QT website](https://www.qt.io).
 
 ###### Linux <img src="images/linux-logo.png" alt="linux logo" width="15"/>
 
