@@ -10,7 +10,7 @@
   <p align="center">
     An implementation of the chess boardgame in c++. 
     <br />
-    <a href="https://github.com/AchrafYndz/chess">View Demo</a>
+    <a href="#features">View Demo</a>
     ·
     <a href="https://github.com/AchrafYndz/chess/issues">Report Bug</a>
     ·
@@ -124,6 +124,11 @@ sudo ./qt-opensource-linux-x64-?.?.?.run
 
 ## Features
 
+<p align="center">
+  <img src="images/gameplay.gif" alt="chess gameplay" />
+</p>
+
+
 - [X] Game rules
     - [X] Check & checkmate
     - [X] Promotion
@@ -175,7 +180,8 @@ Don't forget to give the project a star! Thanks again!
 
 ## Acknowledgments
 
-* My professor [Toon Calders](https://github.com/tcalders) and assistants [Tom Hofkens](https://github.com/thofkens) and [Daphne Lenders]()
+* My professor [Toon Calders](https://github.com/tcalders) and assistants [Tom Hofkens](https://github.com/thofkens)
+  and [Daphne Lenders]()
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
