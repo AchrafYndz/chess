@@ -140,7 +140,7 @@ sudo ./qt-opensource-linux-x64-?.?.?.run
     - [X] Mark all threatened tiles where selected piece could be captured
     - [X] Mark all enemy pieces that can be captured with selected piece
 - [ ] Menu
-    - [X] Enable/disable help features\
+    - [X] Enable/disable help features
     - [ ] Save/load game
     - [ ] Undo/redo move
 - [ ] Other
