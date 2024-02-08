@@ -53,9 +53,6 @@
   <img src="images/screenshot.png" alt="chess screenshot" />
 </p>
 
-This was made as a project for the course "Introduction to Programming" at the University of Antwerp. This was my first
-big project in `c++`.
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
